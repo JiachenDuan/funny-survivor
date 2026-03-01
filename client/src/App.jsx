@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: 16 }}>
-      <h2>Funny Survivor (MVP)</h2>
+      <h2>Funny Survivors (MVP)</h2>
 
       <div style={{ marginBottom: 12, opacity: 0.8 }}>
         <b>Room code:</b> {state.roomCode}

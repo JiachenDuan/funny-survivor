@@ -1,4 +1,4 @@
-# Everything is Crab (MVP)
+# Funny Survivors (MVP)
 
 Local multiplayer party game.
 
