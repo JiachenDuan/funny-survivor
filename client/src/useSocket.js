@@ -2,16 +2,27 @@ import { useEffect, useMemo, useState } from 'react';
 import { io } from 'socket.io-client';
 
 export function useSocket() {
-  const socket = useMemo(() => io(import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'), []);
+  const socket = useMemo(
+    () => io(import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'),
+    []
+  );
+
   const [state, setState] = useState(null);
+  const [meId, setMeId] = useState(null);
+  const [joinError, setJoinError] = useState(null);
 
   useEffect(() => {
+    socket.on('me', ({ id }) => setMeId(id));
     socket.on('state', setState);
+    socket.on('joinError', ({ message }) => setJoinError(message || 'Join failed.'));
+
     return () => {
-      socket.off('state', setState);
+      socket.off('me');
+      socket.off('state');
+      socket.off('joinError');
       socket.disconnect();
     };
   }, [socket]);
 
-  return { socket, state };
+  return { socket, state, meId, joinError, setJoinError };
 }
